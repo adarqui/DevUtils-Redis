@@ -2,7 +2,7 @@ module System.DevUtils.Redis.Include (
 ) where
 
 import System.DevUtils.Sys.Multiplex
-import System.DevUtils.Sys.Memory
+import qualified System.DevUtils.Sys.Memory as Mem
 
 data Status = OK deriving (Show)
 data RoleType = MASTER | SLAVE deriving (Show)
@@ -43,11 +43,11 @@ data Client = Client {
 } deriving (Show)
 
 data Memory = Memory {
- _usedMemory :: Memory,
- _usedMemoryHuman :: Memory,
- _usedMemoryRss :: Memory,
- _usedMemoryPeak :: Memory,
- _usedMemoryPeakHuman :: Memory,
+ _usedMemory :: Mem.Memory Integer,
+ _usedMemoryHuman :: Mem.Memory Integer,
+ _usedMemoryRss :: Mem.Memory Integer,
+ _usedMemoryPeak :: Mem.Memory Integer,
+ _usedMemoryPeakHuman :: Mem.Memory Integer,
  _memFragmentationRatio :: Float,
  _memAllocator :: String
 } deriving (Show)
