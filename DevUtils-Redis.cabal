@@ -14,6 +14,15 @@ library
   exposed-modules:
    System.DevUtils.Redis
    System.DevUtils.Redis.Include
-  build-depends:       base ==4.7.*, HUnit ==1.2.5.*, parsec ==3.1.5, DevUtils-Sys
+   System.DevUtils.Redis.Types
+   System.DevUtils.Redis.Helpers.Info
+   System.DevUtils.Redis.Helpers.Info.Include
+   System.DevUtils.Redis.Helpers.Info.Default
+   System.DevUtils.Redis.Helpers.Info.Marshall
+   System.DevUtils.Redis.Helpers.CommandStats
+   System.DevUtils.Redis.Helpers.CommandStats.Include
+   System.DevUtils.Redis.Helpers.CommandStats.Default
+   System.DevUtils.Redis.Helpers.CommandStats.Marshall
+  build-depends:       base ==4.7.*, HUnit ==1.2.5.*, bytestring ==0.10.4.0, parsec ==3.1.5, hedis ==0.6.5, DevUtils-Base, DevUtils-Sys, DevUtils-Parser
   GHC-Options:         -Wall -rtsopts
   hs-source-dirs:      src

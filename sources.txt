@@ -1,2 +1,4 @@
 .
+https://github.com/adarqui/DevUtils-Base
 https://github.com/adarqui/DevUtils-Sys
+https://github.com/adarqui/DevUtils-Parser
