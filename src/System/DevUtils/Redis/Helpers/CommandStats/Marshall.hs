@@ -1,20 +1,22 @@
 {-# LANGUAGE OverloadedStrings #-}
 module System.DevUtils.Redis.Helpers.CommandStats.Marshall (
- unmarshallCommandStats
+ unMarshall
 ) where
 
 import System.DevUtils.Redis.Helpers.CommandStats.Include (CommandStat(..))
-import System.DevUtils.Redis.Helpers.CommandStats.Default (defaultCommandStat)
+import System.DevUtils.Redis.Helpers.CommandStats.Default (default')
+import System.DevUtils.Redis.Helpers.CommandStats.Parser (runParse)
 import System.DevUtils.Base.Data.Map (kvListToMap)
-import System.DevUtils.Parser.KV.ByteString (runKV, defaultKV)
+import System.DevUtils.Parser.Lines.ByteString (runLines, defaultLines)
 
 import qualified Data.ByteString as B
+import Data.Maybe (Maybe(..), catMaybes)
 
-unmarshallCommandStats :: B.ByteString -> Maybe [CommandStat]
-unmarshallCommandStats bs =
- case (runKV defaultKV bs) of
+unMarshall :: B.ByteString -> Maybe [CommandStat]
+unMarshall bs =
+ case (runLines defaultLines bs) of
   (Left _) -> Nothing
-  (Right val) -> unmarshallCommandStats' val
+  (Right val) -> unMarshall' val
 
-unmarshallCommandStats' :: [(a,b)] -> Maybe [CommandStat]
-unmarshallCommandStats' _ = Nothing
+unMarshall' :: [B.ByteString] -> Maybe [CommandStat]
+unMarshall' linelist = Just $ catMaybes $ map (\line -> runParse line) linelist

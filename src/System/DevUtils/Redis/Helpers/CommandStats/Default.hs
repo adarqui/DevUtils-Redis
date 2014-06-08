@@ -1,18 +1,18 @@
 module System.DevUtils.Redis.Helpers.CommandStats.Default (
- defaultCommandStats,
- defaultCommandStat
+ default'List,
+ default'
 ) where
 
 import System.DevUtils.Redis.Helpers.CommandStats.Include
 import Data.Maybe
 
-defaultCommandStats :: [CommandStat]
-defaultCommandStats = []
+default'List :: [CommandStat]
+default'List = []
 
-defaultCommandStat :: CommandStat
-defaultCommandStat = CommandStat {
+default' :: CommandStat
+default' = CommandStat {
  _type = "",
  _numCalls = 0,
- _totalCpu = 0.0,
+ _totalCpu = 0,
  _avgCpu = 0.0
 }
