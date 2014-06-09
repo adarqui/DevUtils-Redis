@@ -7,14 +7,6 @@ import System.DevUtils.Redis.Helpers.CommandStats.Include
 import System.DevUtils.Redis.Helpers.CommandStats.Marshall
 import Database.Redis
 import Data.Maybe
-import Data.ByteString
-
-{-
- - (Left r) <- runRedis conn $ sendRequest ["info", "commandstats"]
- - let (Bulk b) = r
- - let m = fromJust b
- - runKV defaultKV m
- -}
 
 commandStats :: Redis (Either Reply Integer)
 commandStats = sendRequest ["info", "commandstats"]

@@ -36,6 +36,7 @@ defaultInfoServer = Server {
  _redisVersion = "",
  _redisGitSha1 = "",
  _redisGitDirty = 0,
+ _redisMode = "",
  _os = "",
  _archBits = 0,
  _multiplexingApi = Mplx.UNKNOWN,
@@ -52,17 +53,17 @@ defaultInfoClients :: Clients
 defaultInfoClients = Clients {
  _connectedClients = 0,
  _clientLongestOutputList = 0,
- _clientBBiggestInputBuf = 0,
+ _clientBiggestInputBuf = 0,
  _blockedClients = 0
 }
 
 defaultInfoMemory :: Memory
 defaultInfoMemory = Memory {
  _usedMemory = Mem.B 0,
- _usedMemoryHuman = Mem.B 0,
+ _usedMemoryHuman = Mem.B 0.0,
  _usedMemoryRss = Mem.B 0,
  _usedMemoryPeak = Mem.B 0,
- _usedMemoryPeakHuman = Mem.B 0,
+ _usedMemoryPeakHuman = Mem.B 0.0,
  _memFragmentationRatio = 0.0,
  _memAllocator = ""
 }

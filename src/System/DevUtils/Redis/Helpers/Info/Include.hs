@@ -9,8 +9,7 @@ module System.DevUtils.Redis.Helpers.Info.Include (
  Role(..),
  CPU(..),
  Keyspace(..),
- Cluster(..),
- CommandStat(..)
+ Cluster(..)
 ) where
 
 import System.DevUtils.Redis.Include (RoleType(..), Status(..))
@@ -33,6 +32,7 @@ data Server = Server {
  _redisVersion :: String,
  _redisGitSha1 :: String,
  _redisGitDirty :: Integer,
+ _redisMode :: String,
  _os :: String,
  _archBits :: Integer,
  _multiplexingApi :: Multiplexer,
@@ -48,17 +48,17 @@ data Server = Server {
 data Clients = Clients {
  _connectedClients :: Integer,
  _clientLongestOutputList :: Integer,
- _clientBBiggestInputBuf :: Integer,
+ _clientBiggestInputBuf :: Integer,
  _blockedClients :: Integer
 } deriving (Show)
 
 data Memory = Memory {
  _usedMemory :: Mem.Memory Integer,
- _usedMemoryHuman :: Mem.Memory Integer,
+ _usedMemoryHuman :: Mem.Memory Double,
  _usedMemoryRss :: Mem.Memory Integer,
  _usedMemoryPeak :: Mem.Memory Integer,
- _usedMemoryPeakHuman :: Mem.Memory Integer,
- _memFragmentationRatio :: Float,
+ _usedMemoryPeakHuman :: Mem.Memory Double,
+ _memFragmentationRatio :: Double,
  _memAllocator :: String
 } deriving (Show)
 
@@ -134,10 +134,10 @@ data Role = Role {
  -}
 
 data CPU = CPU {
- _usedCpuSys :: Float,
- _usedCpuUser :: Float,
- _usedCpuSysChildren :: Float,
- _usedCpuUserChildren :: Float
+ _usedCpuSys :: Double,
+ _usedCpuUser :: Double,
+ _usedCpuSysChildren :: Double,
+ _usedCpuUserChildren :: Double
 } deriving (Show)
 
 data Keyspace = Keyspace {
@@ -146,11 +146,4 @@ data Keyspace = Keyspace {
 
 data Cluster = Cluster {
  _clusterEnabled :: Bool
-} deriving (Show)
-
-data CommandStat = CommandStat {
- _type :: String,
- _numCalls :: Integer,
- _totalCpu :: Float,
- _avgCpu :: Float
 } deriving (Show)
