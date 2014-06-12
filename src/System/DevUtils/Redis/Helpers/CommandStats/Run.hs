@@ -1,20 +1,27 @@
 {-# LANGUAGE OverloadedStrings #-}
 module System.DevUtils.Redis.Helpers.CommandStats.Run (
- run'List
+ run,
+ commandStats
 ) where
 
 import System.DevUtils.Redis.Helpers.CommandStats.Include
 import System.DevUtils.Redis.Helpers.CommandStats.Marshall
+
+import qualified Data.ByteString as B
+
 import Database.Redis
 import Data.Maybe
 
-commandStats :: Redis (Either Reply Integer)
-commandStats = sendRequest ["info", "commandstats"]
+instance RedisResult CommandStats where
+ decode o@(Bulk r) =
+  case r of
+   Nothing -> Left o
+   (Just r') -> let un = unMarshall'List r' in case un of
+    Nothing -> Left o
+    (Just commands) -> Right $ CommandStats commands
+ decode r = Left r
 
-run'List :: Connection -> IO (Maybe [CommandStat])
-run'List conn = do
- (Left reply) <- runRedis conn commandStats
- let (Bulk bulk) = reply
- case (isJust bulk) of
-  False -> return Nothing
-  True -> return $ unMarshall'List (fromJust bulk)
+run :: Redis (Either Reply CommandStats)
+run = sendRequest ["INFO", "COMMANDSTATS"]
+
+commandStats = run
