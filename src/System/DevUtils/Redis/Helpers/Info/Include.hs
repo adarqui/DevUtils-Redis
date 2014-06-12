@@ -1,3 +1,4 @@
+{-# LANGUAGE OverloadedStrings, DeriveGeneric #-}
 module System.DevUtils.Redis.Helpers.Info.Include (
  Info(..),
  Server(..),
@@ -17,6 +18,8 @@ import System.DevUtils.Redis.Include (RoleType(..), Status(..))
 import System.DevUtils.Sys.Multiplex
 import qualified System.DevUtils.Sys.Memory as Mem
 
+import GHC.Generics (Generic)
+
 data Info = Info {
  _server :: Server,
  _clients :: Clients,
@@ -26,7 +29,7 @@ data Info = Info {
  _cpu :: CPU,
  _keyspace :: Keyspace,
  _cluster :: Cluster
-} deriving (Show)
+} deriving (Show, Generic)
 
 data Server = Server {
  _redisVersion :: String,
@@ -43,14 +46,14 @@ data Server = Server {
  _uptimeInSeconds :: Integer,
  _uptimeInDays :: Integer,
  _hz :: Integer
-} deriving (Show)
+} deriving (Show, Generic)
 
 data Clients = Clients {
  _connectedClients :: Integer,
  _clientLongestOutputList :: Integer,
  _clientBiggestInputBuf :: Integer,
  _blockedClients :: Integer
-} deriving (Show)
+} deriving (Show, Generic)
 
 data Memory = Memory {
  _usedMemory :: Mem.Memory Integer,
@@ -60,7 +63,7 @@ data Memory = Memory {
  _usedMemoryPeakHuman :: Mem.Memory Double,
  _memFragmentationRatio :: Double,
  _memAllocator :: String
-} deriving (Show)
+} deriving (Show, Generic)
 
 data Persistence = Persistence {
  _rdbChangesSinceLastSave :: Integer,
@@ -74,7 +77,7 @@ data Persistence = Persistence {
  _aofCurrentRewriteTimeSec :: Maybe Integer,
  _aofLastBgrewriteStatus :: Status,
  _aof :: Maybe AOF
-} deriving (Show)
+} deriving (Show, Generic)
 
 {- Maybe aof -}
 {-
@@ -94,7 +97,7 @@ data AOF = AOF {
  _aofRewriteBufferLength :: Integer,
  _aofPendingBioFsync :: Integer,
  _aofDelayedFsync :: Integer
-} deriving (Show)
+} deriving (Show, Generic)
 
 data Stats = Stats {
  _totalConnectionsReceived :: Integer,
@@ -108,12 +111,12 @@ data Stats = Stats {
  _pubsubChannels :: Integer,
  _pubsubPatterns :: Integer,
  _latestForkUsec :: Integer
-} deriving (Show)
+} deriving (Show, Generic)
 
 data Role = Role {
  _roleType :: RoleType,
  _connectedSlaves :: Integer
-} deriving (Show)
+} deriving (Show, Generic)
 
 {-
  - If the instance is a slave, these additional fields are provided:
@@ -138,12 +141,12 @@ data CPU = CPU {
  _usedCpuUser :: Double,
  _usedCpuSysChildren :: Double,
  _usedCpuUserChildren :: Double
-} deriving (Show)
+} deriving (Show, Generic)
 
 data Keyspace = Keyspace {
  _databases :: [String]
-} deriving (Show)
+} deriving (Show, Generic)
 
 data Cluster = Cluster {
  _clusterEnabled :: Bool
-} deriving (Show)
+} deriving (Show, Generic)
