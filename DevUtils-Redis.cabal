@@ -26,6 +26,6 @@ library
    System.DevUtils.Redis.Helpers.CommandStats.Parser
    System.DevUtils.Redis.Helpers.CommandStats.Marshall
    System.DevUtils.Redis.Helpers.CommandStats.Run
-  build-depends:       base ==4.7.*, HUnit ==1.2.5.*, bytestring ==0.10.4.0, parsec ==3.1.5, hedis ==0.6.5, containers ==0.5.5.1, aeson ==0.7.0.6, DevUtils-Base, DevUtils-Sys, DevUtils-Parser
+  build-depends:       base >= 4.6, HUnit >= 1.2.5.0, bytestring >= 0.10.0.0, parsec >= 3.1.5, hedis >= 0.6.5, containers >= 0.5.5.1, aeson >= 0.7.0.6, DevUtils-Base, DevUtils-Sys, DevUtils-Parser
   GHC-Options:         -Wall -rtsopts -XOverloadedStrings
   hs-source-dirs:      src
