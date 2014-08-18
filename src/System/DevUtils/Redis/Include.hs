@@ -1,7 +1,11 @@
+{-# LANGUAGE DeriveGeneric #-}
+
 module System.DevUtils.Redis.Include (
  Status(..),
  RoleType(..),
 ) where
 
-data Status = OK deriving (Show)
-data RoleType = MASTER | SLAVE deriving (Show)
+import GHC.Generics
+
+data Status = OK deriving (Show, Read, Generic)
+data RoleType = MASTER | SLAVE deriving (Show, Read, Generic)

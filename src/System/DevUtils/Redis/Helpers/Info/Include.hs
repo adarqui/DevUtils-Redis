@@ -29,7 +29,7 @@ data Info = Info {
  _cpu :: CPU,
  _keyspace :: Keyspace,
  _cluster :: Cluster
-} deriving (Show, Generic)
+} deriving (Show, Read, Generic)
 
 data Server = Server {
  _redisVersion :: String,
@@ -46,14 +46,14 @@ data Server = Server {
  _uptimeInSeconds :: Integer,
  _uptimeInDays :: Integer,
  _hz :: Integer
-} deriving (Show, Generic)
+} deriving (Show, Read, Generic)
 
 data Clients = Clients {
  _connectedClients :: Integer,
  _clientLongestOutputList :: Integer,
  _clientBiggestInputBuf :: Integer,
  _blockedClients :: Integer
-} deriving (Show, Generic)
+} deriving (Show, Read, Generic)
 
 data Memory = Memory {
  _usedMemory :: Mem.Memory Integer,
@@ -63,7 +63,7 @@ data Memory = Memory {
  _usedMemoryPeakHuman :: Mem.Memory Double,
  _memFragmentationRatio :: Double,
  _memAllocator :: String
-} deriving (Show, Generic)
+} deriving (Show, Read, Generic)
 
 data Persistence = Persistence {
  _rdbChangesSinceLastSave :: Integer,
@@ -77,7 +77,7 @@ data Persistence = Persistence {
  _aofCurrentRewriteTimeSec :: Maybe Integer,
  _aofLastBgrewriteStatus :: Status,
  _aof :: Maybe AOF
-} deriving (Show, Generic)
+} deriving (Show, Read, Generic)
 
 {- Maybe aof -}
 {-
@@ -97,7 +97,7 @@ data AOF = AOF {
  _aofRewriteBufferLength :: Integer,
  _aofPendingBioFsync :: Integer,
  _aofDelayedFsync :: Integer
-} deriving (Show, Generic)
+} deriving (Show, Read, Generic)
 
 data Stats = Stats {
  _totalConnectionsReceived :: Integer,
@@ -111,12 +111,12 @@ data Stats = Stats {
  _pubsubChannels :: Integer,
  _pubsubPatterns :: Integer,
  _latestForkUsec :: Integer
-} deriving (Show, Generic)
+} deriving (Show, Read, Generic)
 
 data Role = Role {
  _roleType :: RoleType,
  _connectedSlaves :: Integer
-} deriving (Show, Generic)
+} deriving (Show, Read, Generic)
 
 {-
  - If the instance is a slave, these additional fields are provided:
@@ -141,12 +141,12 @@ data CPU = CPU {
  _usedCpuUser :: Double,
  _usedCpuSysChildren :: Double,
  _usedCpuUserChildren :: Double
-} deriving (Show, Generic)
+} deriving (Show, Read, Generic)
 
 data Keyspace = Keyspace {
  _databases :: [String]
-} deriving (Show, Generic)
+} deriving (Show, Read, Generic)
 
 data Cluster = Cluster {
  _clusterEnabled :: Bool
-} deriving (Show, Generic)
+} deriving (Show, Read, Generic)
