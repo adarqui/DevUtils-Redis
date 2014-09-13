@@ -25,6 +25,7 @@ defaultInfo = Info {
  _clients = defaultInfoClients,
  _memory = defaultInfoMemory,
  _persistence = defaultInfoPersistence,
+ _stats = defaultInfoStats,
  _role = defaultInfoRole,
  _cpu = defaultInfoCPU,
  _keyspace = defaultInfoKeyspace,
@@ -83,6 +84,21 @@ defaultInfoPersistence = Persistence {
  _aof = Nothing
 }
 
+defaultInfoStats :: Stats
+defaultInfoStats = Stats {
+ _totalConnectionsReceived = 0,
+ _totalCommandsProcessed = 0,
+ _instantaneousOpsPerSec = 0,
+ _rejectedConnections = 0,
+ _expiredKeys = 0,
+ _evictedKeys = 0,
+ _keyspaceHits = 0,
+ _keyspaceMisses = 0,
+ _pubsubChannels = 0,
+ _pubsubPatterns = 0,
+ _latestForkUsec = 0
+}
+
 {- Nothing aof -}
 {-
  - aof_current_size: AOF current file size
@@ -103,21 +119,6 @@ defaultInfoAOF = AOF {
  _aofRewriteBufferLength = 0,
  _aofPendingBioFsync = 0,
  _aofDelayedFsync = 0
-}
-
-defaultInfoStats :: Stats
-defaultInfoStats = Stats {
- _totalConnectionsReceived = 0,
- _totalCommandsProcessed = 0,
- _instantaneousOpsPerSec = 0,
- _rejectedConnections = 0,
- _expiredKeys = 0,
- _evictedKeys = 0,
- _keyspaceHits = 0,
- _keyspaceMisses = 0,
- _pubsubChannels = 0,
- _pubsubPatterns = 0,
- _latestForkUsec = 0
 }
 
 defaultInfoRole :: Role

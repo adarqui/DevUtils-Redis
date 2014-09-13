@@ -2,15 +2,18 @@
 module System.DevUtils.Redis.Types.ByteString (
  rBool,
  rString,
+ rStrings,
  rInteger,
  rInt,
  rFloat,
  rDouble,
+ rRole,
  rMultiplexer,
  rMem,
  rMemHuman
 ) where
 
+import System.DevUtils.Redis.Include
 import qualified Data.ByteString.Char8 as B
 import qualified System.DevUtils.Sys.Multiplex as Mplx
 import qualified System.DevUtils.Sys.Memory as Mem
@@ -21,6 +24,9 @@ rBool "1" = True
 
 rString :: B.ByteString -> String
 rString s = B.unpack s
+
+rStrings :: [B.ByteString] -> [String]
+rStrings ss = map rString ss
 
 rInteger :: B.ByteString -> Integer
 rInteger s = (read (B.unpack s) :: Integer)
@@ -33,6 +39,11 @@ rDouble s = (read (B.unpack s) :: Double)
 
 rFloat :: B.ByteString -> Double
 rFloat = rDouble
+
+rRole :: B.ByteString -> RoleType
+rRole s = case s of
+ "master" -> MASTER
+ "slave" -> SLAVE
 
 -- FIXME
 rMultiplexer :: B.ByteString -> Mplx.Multiplexer

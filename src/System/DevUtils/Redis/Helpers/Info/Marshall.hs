@@ -38,7 +38,6 @@ unMarshall'1' kvlist = Just $ infoMapTranslate defaultInfo kvlist
 
 infoMap :: M.Map B.ByteString (Info -> B.ByteString -> Info)
 infoMap = M.fromList [
--- ("redis_version", \r v -> let z = s r in r { _server = z { _redisVersion = rString v }}),
  -- Server
  ("redis_version", \r v -> r { _server = (s r) { _redisVersion = rString v }}),
  ("redis_git_sha1", \r v -> r { _server = (s r) { _redisGitSha1 = rString v } } ),
@@ -66,22 +65,48 @@ infoMap = M.fromList [
  ("used_memory_peak", \r v -> r { _memory = (m r) { _usedMemoryPeak = rMem v } } ),
  ("used_memory_peak_human", \r v -> r { _memory = (m r) { _usedMemoryPeakHuman = rMemHuman v } } ),
  ("mem_fragmentation_ratio", \r v -> r { _memory = (m r) { _memFragmentationRatio = rDouble v } } ),
- ("mem_allocator", \r v -> r { _memory = (m r) { _memAllocator = rString v } } )
--- ("y", \r v -> r { _memory = (m r) { _x = rString v } } ),
-
+ ("mem_allocator", \r v -> r { _memory = (m r) { _memAllocator = rString v } } ),
+ -- Stats
+ ("total_connections_received", \r v -> r { _stats = (st r) { _totalConnectionsReceived = rInt v } } ),
+ ("total_commands_processed", \r v -> r { _stats = (st r) { _totalCommandsProcessed = rInt v } } ),
+ ("instantaneous_ops_per_sec", \r v -> r { _stats = (st r) { _instantaneousOpsPerSec = rInt v } } ),
+ ("rejected_connections", \r v -> r { _stats = (st r) { _rejectedConnections = rInt v } } ),
+ ("expired_keys", \r v -> r { _stats = (st r) { _expiredKeys = rInt v } } ),
+ ("evicted_keys", \r v -> r { _stats = (st r) { _evictedKeys = rInt v } } ),
+ ("keyspace_hits", \r v -> r { _stats = (st r) { _keyspaceHits = rInt v } } ),
+ ("keyspace_misses", \r v -> r { _stats = (st r) { _keyspaceMisses = rInt v } } ),
+ ("pubsub_channels", \r v -> r { _stats = (st r) { _pubsubChannels = rInt v } } ),
+ ("pubsub_patterns", \r v -> r { _stats = (st r) { _pubsubPatterns = rInt v } } ),
+ ("latest_fork_usec", \r v -> r { _stats = (st r) { _latestForkUsec = rInt v } } ),
+ -- Role
+ ("role_type", \r v -> r { _role = (role r) { _roleType = rRole v } } ),
+ ("connected_slaves", \r v -> r { _role = (role r) { _connectedSlaves = rInt v } } ),
+ -- CPU
+ ("used_cpu_sys", \r v -> r { _cpu = (cpu r) { _usedCpuSys = rDouble v } } ),
+ ("used_cpu_user", \r v -> r { _cpu = (cpu r) { _usedCpuUser = rDouble v } } ),
+ ("used_cpu_sys_children", \r v -> r { _cpu = (cpu r) { _usedCpuSysChildren = rDouble v } } ),
+ ("used_cpu_user_children", \r v -> r { _cpu = (cpu r) { _usedCpuUserChildren = rDouble v } } ),
+ -- Keyspace
+-- ("databases", \r v -> r { _keyspace = (ks r) { _databases = rStrings v } } )
+ ("databases", \r v -> r { _keyspace = (ks r) { _databases = [] } } ),
+ -- Cluster
+ ("cluster_enabled", \r v -> r { _cluster = (cl r) { _clusterEnabled = rBool v } } )
  ]
  where
   s r = _server r
   c r = _clients r
   m r = _memory r
---  q r f v = let z = _server r in r { _server = z { f = v } }
+  st r = _stats r
+  role r = _role r
+  cpu r = _cpu r
+  ks r = _keyspace r
+  cl r = _cluster r
 
 changeField :: Info -> (B.ByteString,B.ByteString) -> Info
 changeField info (k,v) = case (isJust cb) of
  True -> (fromJust cb) info v
  False -> info
  where
---  cb = infoMap M.! k
   cb = M.lookup k infoMap
 
 infoMapTranslate :: Info -> [(B.ByteString, B.ByteString)] -> Info

@@ -1,6 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 module System.DevUtils.Redis.Helpers.CommandStats.Run (
  run,
+ run'List,
  commandStats
 ) where
 
@@ -25,3 +26,10 @@ run :: Redis (Either Reply CommandStats)
 run = sendRequest ["INFO", "COMMANDSTATS"]
 
 commandStats = run
+
+run'List :: Connection -> IO (Maybe CommandStats)
+run'List conn = do
+ either <- runRedis conn commandStats
+ case either of
+  (Left err) -> return Nothing
+  (Right cs) -> return $ Just cs

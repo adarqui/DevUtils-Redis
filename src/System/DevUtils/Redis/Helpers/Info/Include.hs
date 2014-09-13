@@ -25,6 +25,7 @@ data Info = Info {
  _clients :: Clients,
  _memory :: Memory,
  _persistence :: Persistence,
+ _stats :: Stats,
  _role :: Role,
  _cpu :: CPU,
  _keyspace :: Keyspace,
