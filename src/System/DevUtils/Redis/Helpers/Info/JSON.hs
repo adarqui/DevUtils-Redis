@@ -7,7 +7,6 @@ import System.DevUtils.Redis.JSON
 import qualified Data.ByteString as B
 import Data.Aeson (FromJSON, ToJSON, decode, encode)
 
-{-
 instance FromJSON Info
 instance ToJSON Info
 
@@ -40,4 +39,3 @@ instance ToJSON Keyspace
 
 instance FromJSON Cluster
 instance ToJSON Cluster
--}

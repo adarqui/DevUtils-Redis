@@ -39,7 +39,8 @@ data Server = Server {
  _redisMode :: String,
  _os :: String,
  _archBits :: Integer,
- _multiplexingApi :: Multiplexer,
+-- _multiplexingApi :: Multiplexer,
+ _multiplexingApi :: String,
  _gccVersion :: String,
  _processId :: Integer,
  _runId :: String,
@@ -57,6 +58,15 @@ data Clients = Clients {
 } deriving (Show, Read, Generic)
 
 data Memory = Memory {
+ _usedMemory :: String,
+ _usedMemoryHuman :: String,
+ _usedMemoryRss :: String,
+ _usedMemoryPeak :: String,
+ _usedMemoryPeakHuman :: String,
+ _memFragmentationRatio :: Double,
+ _memAllocator :: String
+{-
+ FIX
  _usedMemory :: Mem.Memory Integer,
  _usedMemoryHuman :: Mem.Memory Double,
  _usedMemoryRss :: Mem.Memory Integer,
@@ -64,6 +74,7 @@ data Memory = Memory {
  _usedMemoryPeakHuman :: Mem.Memory Double,
  _memFragmentationRatio :: Double,
  _memAllocator :: String
+-}
 } deriving (Show, Read, Generic)
 
 data Persistence = Persistence {

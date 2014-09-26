@@ -45,7 +45,8 @@ infoMap = M.fromList [
  ("redis_mode", \r v -> r { _server = (s r) { _redisMode = rString v } } ),
  ("os", \r v -> r { _server = (s r) { _os = rString v } } ),
  ("arch_bits", \r v -> r { _server = (s r) { _archBits = rInt v } } ),
- ("multiplexing_api", \r v -> r { _server = (s r) { _multiplexingApi = rMultiplexer v } } ),
+ ("multiplexing_api", \r v -> r { _server = (s r) { _multiplexingApi = rString v } } ),
+-- FIX ("multiplexing_api", \r v -> r { _server = (s r) { _multiplexingApi = rMultiplexer v } } ),
  ("gcc_version", \r v -> r { _server = (s r) { _gccVersion = rString v } } ),
  ("process_id", \r v -> r { _server = (s r) { _processId = rInt v } } ),
  ("run_id", \r v -> r { _server = (s r) { _runId = rString v } } ),
@@ -59,6 +60,15 @@ infoMap = M.fromList [
  ("client_biggest_input_buf", \r v -> r { _clients = (c r) { _clientBiggestInputBuf = rInt v } } ),
  ("blocked_clients", \r v -> r { _clients = (c r) { _blockedClients = rInt v } } ),
  -- Memory
+ ("used_memory", \r v -> r { _memory = (m r) { _usedMemory = rString v } } ),
+ ("used_memory_human", \r v -> r { _memory = (m r) { _usedMemoryHuman = rString v } } ),
+ ("used_memory_rss", \r v -> r { _memory = (m r) { _usedMemoryRss = rString v } } ),
+ ("used_memory_peak", \r v -> r { _memory = (m r) { _usedMemoryPeak = rString v } } ),
+ ("used_memory_peak_human", \r v -> r { _memory = (m r) { _usedMemoryPeakHuman = rString v } } ),
+ ("mem_fragmentation_ratio", \r v -> r { _memory = (m r) { _memFragmentationRatio = rDouble v } } ),
+ ("mem_allocator", \r v -> r { _memory = (m r) { _memAllocator = rString v } } ),
+{-
+ FIX
  ("used_memory", \r v -> r { _memory = (m r) { _usedMemory = rMem v } } ),
  ("used_memory_human", \r v -> r { _memory = (m r) { _usedMemoryHuman = rMemHuman v } } ),
  ("used_memory_rss", \r v -> r { _memory = (m r) { _usedMemoryRss = rMem v } } ),
@@ -66,6 +76,7 @@ infoMap = M.fromList [
  ("used_memory_peak_human", \r v -> r { _memory = (m r) { _usedMemoryPeakHuman = rMemHuman v } } ),
  ("mem_fragmentation_ratio", \r v -> r { _memory = (m r) { _memFragmentationRatio = rDouble v } } ),
  ("mem_allocator", \r v -> r { _memory = (m r) { _memAllocator = rString v } } ),
+-}
  -- Stats
  ("total_connections_received", \r v -> r { _stats = (st r) { _totalConnectionsReceived = rInt v } } ),
  ("total_commands_processed", \r v -> r { _stats = (st r) { _totalCommandsProcessed = rInt v } } ),

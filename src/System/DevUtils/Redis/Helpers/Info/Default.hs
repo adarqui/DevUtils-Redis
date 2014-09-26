@@ -40,7 +40,8 @@ defaultInfoServer = Server {
  _redisMode = "",
  _os = "",
  _archBits = 0,
- _multiplexingApi = Mplx.UNKNOWN,
+ _multiplexingApi = "UNKNOWN",
+-- FIX _multiplexingApi = Mplx.UNKNOWN,
  _gccVersion = "",
  _processId = 0,
  _runId = "",
@@ -60,6 +61,24 @@ defaultInfoClients = Clients {
 
 defaultInfoMemory :: Memory
 defaultInfoMemory = Memory {
+ _usedMemory = "",
+ _usedMemoryHuman = "",
+ _usedMemoryRss = "", 
+ _usedMemoryPeak = "",
+ _usedMemoryPeakHuman = "",
+ _memFragmentationRatio = 0.0,
+ _memAllocator = ""
+{-
+ _usedMemory = 0,
+ _usedMemoryHuman = 0.0,
+ _usedMemoryRss = 0,
+ _usedMemoryPeak = 0,
+ _usedMemoryPeakHuman = 0.0,
+ _memFragmentationRatio = 0.0,
+ _memAllocator = ""
+-}
+{-
+ FIX
  _usedMemory = Mem.B 0,
  _usedMemoryHuman = Mem.B 0.0,
  _usedMemoryRss = Mem.B 0,
@@ -67,6 +86,7 @@ defaultInfoMemory = Memory {
  _usedMemoryPeakHuman = Mem.B 0.0,
  _memFragmentationRatio = 0.0,
  _memAllocator = ""
+-}
 }
 
 defaultInfoPersistence :: Persistence
