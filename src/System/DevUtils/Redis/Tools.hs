@@ -31,10 +31,11 @@ urlToConnectInfo url = ConnInfo {
   connectAuth = auth,
 -- FIX
   connectMaxConnections = 1,
-  connectMaxIdleTime = 30.0
+  connectMaxIdleTime = 30.0,
+  connectDatabase = db
  }
  where
-  db  = _db
+  db  = _db url
   port = _port $ _con $ _ses url
   auth = case (_auth $ _ses url) of
    (Just v) ->  Just $ C.pack $ _user v
