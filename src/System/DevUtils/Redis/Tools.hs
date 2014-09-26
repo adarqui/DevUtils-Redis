@@ -1,5 +1,5 @@
 module System.DevUtils.Redis.Tools (
- urlToConnInfo
+ urlToConnectInfo
 ) where
 
 import System.DevUtils.Base.Url.Redis
