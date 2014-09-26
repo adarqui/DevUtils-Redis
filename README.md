@@ -15,6 +15,9 @@ Info
 ```
 import System.DevUtils.Redis.Helpers.Info.Run
 info <- run'1 r
+
+import System.DevUtils.Redis.Helpers.Info.Run
+v <- info r
 ```
 
 Command stats

@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 module System.DevUtils.Redis.Helpers.Info.Run (
- run'1
+ run'info
 ) where
 
 import System.DevUtils.Redis.Helpers.Info.Include
@@ -8,8 +8,8 @@ import System.DevUtils.Redis.Helpers.Info.Marshall
 import Database.Redis
 import Data.Maybe
 
-run'1 :: Connection -> IO (Maybe Info)
-run'1 conn = do
+run'info :: Connection -> IO (Maybe Info)
+run'info conn = do
  either <- runRedis conn info
  case either of
   (Left err) -> return Nothing

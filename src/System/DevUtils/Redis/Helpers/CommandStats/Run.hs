@@ -1,8 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 module System.DevUtils.Redis.Helpers.CommandStats.Run (
- run,
- run'List,
- commandStats
+ run'commandStats,
+ run'commandStats'List
 ) where
 
 import System.DevUtils.Redis.Helpers.CommandStats.Include
@@ -22,14 +21,12 @@ instance RedisResult CommandStats where
     (Just commands) -> Right $ CommandStats commands
  decode r = Left r
 
-run :: Redis (Either Reply CommandStats)
-run = sendRequest ["INFO", "COMMANDSTATS"]
+run'commandStats :: Redis (Either Reply CommandStats)
+run'commandStats = sendRequest ["INFO", "COMMANDSTATS"]
 
-commandStats = run
-
-run'List :: Connection -> IO (Maybe CommandStats)
-run'List conn = do
- either <- runRedis conn commandStats
+run'commandStats'List :: Connection -> IO (Maybe CommandStats)
+run'commandStats'List conn = do
+ either <- runRedis conn run'commandStats
  case either of
   (Left err) -> return Nothing
   (Right cs) -> return $ Just cs
