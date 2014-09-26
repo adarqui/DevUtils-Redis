@@ -23,6 +23,7 @@ library
    System.DevUtils.Redis.Helpers.Info.Default
    System.DevUtils.Redis.Helpers.Info.Marshall
    System.DevUtils.Redis.Helpers.Info.JSON
+   System.DevUtils.Redis.Helpers.Info.Run
    System.DevUtils.Redis.Helpers.CommandStats
    System.DevUtils.Redis.Helpers.CommandStats.Include
    System.DevUtils.Redis.Helpers.CommandStats.Default
