@@ -22,8 +22,8 @@ import Data.Maybe
 
 import qualified Data.ByteString.Char8 as C
 
-urlToConnInfo :: Redis -> ConnectInfo
-urlToConnInfo url = ConnInfo {
+urlToConnectInfo :: Redis -> ConnectInfo
+urlToConnectInfo url = ConnInfo {
   connectHost = tcp,
   connectPort = PortNumber 6379,
 -- FIX
