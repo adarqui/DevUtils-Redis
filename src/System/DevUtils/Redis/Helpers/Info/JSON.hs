@@ -1,4 +1,5 @@
 module System.DevUtils.Redis.Helpers.Info.JSON (
+ Info(..)
 ) where
 
 import System.DevUtils.Redis.Helpers.Info.Include
