@@ -15,6 +15,7 @@ library
    System.DevUtils.Redis
    System.DevUtils.Redis.Include
    System.DevUtils.Redis.JSON
+   System.DevUtils.Redis.Tools
    System.DevUtils.Redis.Types.String
    System.DevUtils.Redis.Types.ByteString
    System.DevUtils.Redis.Helpers.Info
