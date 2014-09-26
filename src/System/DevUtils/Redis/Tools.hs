@@ -28,7 +28,10 @@ urlToConnectInfo url = ConnInfo {
   connectPort = PortNumber 6379,
 -- FIX
 --  connectPort = port,
-  connectAuth = auth
+  connectAuth = auth,
+-- FIX
+  connectMaxConnections = 1,
+  connectMaxIdleTime = 30.0
  }
  where
   db  = _db
