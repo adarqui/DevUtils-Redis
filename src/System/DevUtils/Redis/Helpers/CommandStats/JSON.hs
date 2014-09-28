@@ -1,4 +1,6 @@
 module System.DevUtils.Redis.Helpers.CommandStats.JSON (
+ CommandStat(..),
+ CommandStats(..)
 ) where
 
 import System.DevUtils.Redis.Helpers.CommandStats.Include (CommandStat(..), CommandStats(..))
