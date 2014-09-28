@@ -2,17 +2,10 @@ module System.DevUtils.Redis.Tools (
  urlToConnectInfo
 ) where
 
-import System.DevUtils.Base.Url.Redis
+import System.DevUtils.Base
+
+import qualified System.DevUtils.Base.Url.Redis as R
  (Redis(..))
-
-import System.DevUtils.Base.Url.Session
- (Session(..))
-
-import System.DevUtils.Base.Url.Auth
- (Auth(..))
-
-import System.DevUtils.Base.Url.Connection
- (Connection(..), ConnectionType(..))
 
 import Database.Redis
  (ConnectInfo(..), PortID(..))
@@ -22,12 +15,10 @@ import Data.Maybe
 
 import qualified Data.ByteString.Char8 as C
 
-urlToConnectInfo :: Redis -> ConnectInfo
+urlToConnectInfo :: R.Redis -> ConnectInfo
 urlToConnectInfo url = ConnInfo {
   connectHost = tcp,
-  connectPort = PortNumber 6379,
--- FIX
---  connectPort = port,
+  connectPort = portFromWord port,
   connectAuth = auth,
 -- FIX
   connectMaxConnections = 1,
@@ -35,11 +26,11 @@ urlToConnectInfo url = ConnInfo {
   connectDatabase = db
  }
  where
-  db  = _db url
-  port = _port $ _con $ _ses url
-  auth = case (_auth $ _ses url) of
+  db  = R._db url
+  port = _port $ _con $ R._ses url
+  auth = case (_auth $ R._ses url) of
    (Just v) ->  Just $ C.pack $ _user v
    _ -> Nothing
-  (tcp,unix) = let (t,d) = (_type $ _con $ _ses url, _dest $ _con $ _ses url) in case t of
+  (tcp,unix) = let (t,d) = (_type $ _con $ R._ses url, _dest $ _con $ R._ses url) in case t of
    UNIX -> ("", d)
    _ -> (d, "")
