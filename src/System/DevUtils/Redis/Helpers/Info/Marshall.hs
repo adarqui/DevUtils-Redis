@@ -107,7 +107,8 @@ infoMap = M.fromList ([
  -- Cluster
  ("cluster_enabled", \r v -> r { _cluster = (cl r) { _clusterEnabled = rBool v } } )
  ]
- ++ (map (\n -> (B.concat ["db", C.pack (show n)], \r v -> r { _keyspaces = (ks r) { _databases = (_databases $ ks r) ++ (maybe [] (\x -> [x]) (runParse'1 v)) }})) [0..15])
+ -- hideous.. ;(
+ ++ (map (\n -> (B.concat ["db", C.pack (show n)], \r v -> r { _keyspaces = (ks r) { _databases = (_databases $ ks r) ++ (maybe [] (\x -> [x]) (runParse'1 (B.concat ["db",C.pack (show n),":",v]))) }})) [0..15])
  )
  where
   s r = _server r
