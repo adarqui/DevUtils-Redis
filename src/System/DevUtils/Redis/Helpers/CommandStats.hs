@@ -1,12 +1,10 @@
 module System.DevUtils.Redis.Helpers.CommandStats (
- CommandStats(..),
- CommandStat(..),
- run'commandStats,
- run'commandStats'List
+ module A
 ) where
 
-import System.DevUtils.Redis.Helpers.CommandStats.Include (CommandStat(..), CommandStats(..))
-import System.DevUtils.Redis.Helpers.CommandStats.Default ()
-import System.DevUtils.Redis.Helpers.CommandStats.Marshall ()
-import System.DevUtils.Redis.Helpers.CommandStats.JSON ()
-import System.DevUtils.Redis.Helpers.CommandStats.Run (run'commandStats, run'commandStats'List)
+import System.DevUtils.Redis.Helpers.CommandStats.Include as A
+import System.DevUtils.Redis.Helpers.CommandStats.Default as A
+import System.DevUtils.Redis.Helpers.CommandStats.Parser as A
+import System.DevUtils.Redis.Helpers.CommandStats.Marshall as A
+import System.DevUtils.Redis.Helpers.CommandStats.JSON as A
+import System.DevUtils.Redis.Helpers.CommandStats.Run as A

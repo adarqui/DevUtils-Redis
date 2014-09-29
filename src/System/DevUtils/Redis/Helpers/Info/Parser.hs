@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 module System.DevUtils.Redis.Helpers.Info.Parser (
- runParse'1
+ runParse'Keyspace
 ) where
 
 import System.DevUtils.Redis.Helpers.Info.Include
@@ -14,8 +14,8 @@ import Data.ByteString
 
 -- db2:keys=2,expires=0,avg_ttl=0
 
-runParse'1' :: Parser Keyspace
-runParse'1' = do
+runParse'Keyspace' :: Parser Keyspace
+runParse'Keyspace' = do
  _ <- string "db"
  db <- many1 digit
  string ":"
@@ -34,8 +34,8 @@ runParse'1' = do
   _avgTtl = (read expires :: Int)
  }
 
-runParse'1 :: ByteString -> Maybe Keyspace
-runParse'1 bs = do
- case (runParser runParse'1' () "Keyspace" bs) of
+runParse'Keyspace :: ByteString -> Maybe Keyspace
+runParse'Keyspace bs = do
+ case (runParser runParse'Keyspace' () "Keyspace" bs) of
   (Left err) -> Nothing
   (Right val) -> Just val

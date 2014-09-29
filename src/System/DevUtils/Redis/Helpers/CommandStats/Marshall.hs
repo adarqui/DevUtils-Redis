@@ -6,7 +6,7 @@ module System.DevUtils.Redis.Helpers.CommandStats.Marshall (
 
 import System.DevUtils.Redis.Helpers.CommandStats.Include (CommandStat(..))
 import System.DevUtils.Redis.Helpers.CommandStats.Default (default')
-import System.DevUtils.Redis.Helpers.CommandStats.Parser (runParse'1)
+import System.DevUtils.Redis.Helpers.CommandStats.Parser (runParse'CommandStat)
 import System.DevUtils.Base.Data.Map (kvListToMap)
 import System.DevUtils.Parser.Lines.ByteString (runLines, defaultLines)
 
@@ -23,4 +23,4 @@ unMarshall'List' :: [B.ByteString] -> Maybe [CommandStat]
 unMarshall'List' linelist = Just $ catMaybes $ map unMarshall'1 linelist
 
 unMarshall'1 :: B.ByteString -> Maybe CommandStat
-unMarshall'1 bs = runParse'1 bs
+unMarshall'1 bs = runParse'CommandStat bs

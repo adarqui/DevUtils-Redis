@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 module System.DevUtils.Redis.Helpers.CommandStats.Parser (
- runParse'1
+ runParse'CommandStat
 ) where
 
 import System.DevUtils.Redis.Helpers.CommandStats.Include
@@ -12,8 +12,8 @@ import Text.Parsec
 import Text.Parsec.ByteString
 import Data.ByteString
 
-runParse'1' :: Parser CommandStat
-runParse'1' = do
+runParse'CommandStat' :: Parser CommandStat
+runParse'CommandStat' = do
  _ <- string "cmdstat_"
  cmd <- many1 alphaNum
  string ":"
@@ -32,8 +32,8 @@ runParse'1' = do
   _avgCpu = usec_per_call
  }
 
-runParse'1 :: ByteString -> Maybe CommandStat
-runParse'1 bs = do
- case (runParser runParse'1' () "CommandStat" bs) of
+runParse'CommandStat :: ByteString -> Maybe CommandStat
+runParse'CommandStat bs = do
+ case (runParser runParse'CommandStat' () "CommandStat" bs) of
   (Left err) -> Nothing
   (Right val) -> Just val
