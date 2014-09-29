@@ -25,7 +25,7 @@ runParse'1' = do
  _ <- string "expires="
  expires <- many1 digit
  string ","
- _ <- string "avg_ttll="
+ _ <- string "avg_ttl="
  avgTtl <- many1 digit
  return $ Keyspace {
   _db = (read db :: Int),
