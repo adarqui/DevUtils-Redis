@@ -21,8 +21,10 @@ import Data.Aeson
 instance FromJSON CommandStat
 instance ToJSON CommandStat
 
+{-
 instance FromJSON CommandStats
 instance ToJSON CommandStats
+-}
 
 unMarshall'Value :: [CommandStat] -> Value
 unMarshall'Value cs = object $ map (\v -> (T.pack (_type v), cs'to'Value v)) cs

@@ -6,7 +6,8 @@ module System.DevUtils.Redis.Helpers.CommandStats.Include (
 
 import GHC.Generics (Generic)
 
-data CommandStats = CommandStats [CommandStat] deriving (Show, Read, Eq, Generic)
+--data CommandStats = CommandStats [CommandStat] deriving (Show, Read, Eq, Generic)
+type CommandStats = [CommandStat]
 
 data CommandStat = CommandStat {
  _type :: String,
