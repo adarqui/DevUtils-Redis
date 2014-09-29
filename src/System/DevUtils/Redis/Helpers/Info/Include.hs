@@ -164,7 +164,7 @@ data Keyspace = Keyspace {
  _db :: Int,
  _keys :: Int,
  _expires :: Int,
- _avgTtl :: Int
+ _avgTtl :: Maybe Int
 } deriving (Show, Read, Generic)
 
 data Cluster = Cluster {

@@ -24,14 +24,15 @@ runParse'Keyspace' = do
  string ","
  _ <- string "expires="
  expires <- many1 digit
- string ","
- _ <- string "avg_ttl="
- avgTtl <- many1 digit
+-- string ","
+-- _ <- string "avg_ttl="
+-- avgTtl <- many1 digit
  return $ Keyspace {
   _db = (read db :: Int),
   _keys = (read keys :: Int),
   _expires = (read expires :: Int),
-  _avgTtl = (read expires :: Int)
+  _avgTtl = Nothing
+--  _avgTtl = (read expires :: Int)
  }
 
 runParse'Keyspace :: ByteString -> Maybe Keyspace
