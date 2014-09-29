@@ -1,3 +1,4 @@
+{-# LANGUAGE FlexibleInstances #-}
 module System.DevUtils.Redis.Helpers.Info.JSON (
  Info(..)
 ) where
@@ -34,6 +35,9 @@ instance ToJSON Role
 
 instance FromJSON CPU
 instance ToJSON CPU
+
+instance FromJSON Keyspaces
+instance ToJSON Keyspaces
 
 instance FromJSON Keyspace
 instance ToJSON Keyspace

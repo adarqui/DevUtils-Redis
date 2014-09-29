@@ -21,6 +21,7 @@ library
    System.DevUtils.Redis.Helpers.Info
    System.DevUtils.Redis.Helpers.Info.Include
    System.DevUtils.Redis.Helpers.Info.Default
+   System.DevUtils.Redis.Helpers.Info.Parser
    System.DevUtils.Redis.Helpers.Info.Marshall
    System.DevUtils.Redis.Helpers.Info.JSON
    System.DevUtils.Redis.Helpers.Info.Run
@@ -31,6 +32,6 @@ library
    System.DevUtils.Redis.Helpers.CommandStats.Marshall
    System.DevUtils.Redis.Helpers.CommandStats.JSON
    System.DevUtils.Redis.Helpers.CommandStats.Run
-  build-depends:       base >= 4.6, HUnit >= 1.2.5.0, bytestring >= 0.10.0.0, parsec >= 3.1.3, hedis >= 0.6.5, containers >= 0.5.0.0, aeson >= 0.7.0.6, text, DevUtils-Base, DevUtils-Sys, DevUtils-Parser
+  build-depends:       base >= 4.6, HUnit >= 1.2.5.0, bytestring >= 0.10.0.0, parsec >= 3.1.3, hedis >= 0.6.5, containers >= 0.5.0.0, aeson >= 0.7.0.6, text, hashmap, DevUtils-Base, DevUtils-Sys, DevUtils-Parser
   GHC-Options:         -Wall -rtsopts -XOverloadedStrings
   hs-source-dirs:      src

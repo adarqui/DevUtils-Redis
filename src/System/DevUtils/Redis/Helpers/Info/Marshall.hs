@@ -1,5 +1,8 @@
 {-# LANGUAGE OverloadedStrings, NamedFieldPuns #-}
 
+{-
+ - Never again.
+ -}
 
 {-
  - My method for parsing redis's info response is hideous.. need to clean this up eventually.
@@ -15,10 +18,12 @@ module System.DevUtils.Redis.Helpers.Info.Marshall (
 import System.DevUtils.Redis.Types.ByteString
 import System.DevUtils.Redis.Helpers.Info.Include
 import System.DevUtils.Redis.Helpers.Info.Default (defaultInfo)
+import System.DevUtils.Redis.Helpers.Info.Parser
 import System.DevUtils.Base.Data.Map (kvListToMap)
 import System.DevUtils.Parser.KV.ByteString (runKV, defaultKV)
 
 import qualified Data.ByteString as B
+import qualified Data.ByteString.Char8 as C
 import qualified Data.Map as M
 
 import Data.Maybe
@@ -37,7 +42,7 @@ unMarshall'1' kvlist = Just $ infoMapTranslate defaultInfo kvlist
  -}
 
 infoMap :: M.Map B.ByteString (Info -> B.ByteString -> Info)
-infoMap = M.fromList [
+infoMap = M.fromList ([
  -- Server
  ("redis_version", \r v -> r { _server = (s r) { _redisVersion = rString v }}),
  ("redis_git_sha1", \r v -> r { _server = (s r) { _redisGitSha1 = rString v } } ),
@@ -98,11 +103,12 @@ infoMap = M.fromList [
  ("used_cpu_sys_children", \r v -> r { _cpu = (cpu r) { _usedCpuSysChildren = rDouble v } } ),
  ("used_cpu_user_children", \r v -> r { _cpu = (cpu r) { _usedCpuUserChildren = rDouble v } } ),
  -- Keyspace
--- ("databases", \r v -> r { _keyspace = (ks r) { _databases = rStrings v } } )
- ("databases", \r v -> r { _keyspace = (ks r) { _databases = [] } } ),
+-- db0:keys=15,expires=0,avg_ttl=0
  -- Cluster
  ("cluster_enabled", \r v -> r { _cluster = (cl r) { _clusterEnabled = rBool v } } )
  ]
+ ++ (map (\n -> (B.concat ["db", C.pack (show n)], \r v -> r { _keyspaces = (ks r) { _databases = (_databases $ ks r) ++ (maybe [] (\x -> [x]) (runParse'1 v)) }})) [0..15])
+ )
  where
   s r = _server r
   c r = _clients r
@@ -110,7 +116,7 @@ infoMap = M.fromList [
   st r = _stats r
   role r = _role r
   cpu r = _cpu r
-  ks r = _keyspace r
+  ks r = _keyspaces r
   cl r = _cluster r
 
 changeField :: Info -> (B.ByteString,B.ByteString) -> Info

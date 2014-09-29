@@ -9,6 +9,7 @@ module System.DevUtils.Redis.Helpers.Info.Include (
  Stats(..),
  Role(..),
  CPU(..),
+ Keyspaces(..),
  Keyspace(..),
  Cluster(..)
 ) where
@@ -28,7 +29,7 @@ data Info = Info {
  _stats :: Stats,
  _role :: Role,
  _cpu :: CPU,
- _keyspace :: Keyspace,
+ _keyspaces :: Keyspaces,
  _cluster :: Cluster
 } deriving (Show, Read, Generic)
 
@@ -155,8 +156,15 @@ data CPU = CPU {
  _usedCpuUserChildren :: Double
 } deriving (Show, Read, Generic)
 
+data Keyspaces = Keyspaces {
+ _databases :: [Keyspace]
+} deriving (Show, Read, Generic)
+
 data Keyspace = Keyspace {
- _databases :: [String]
+ _db :: Int,
+ _keys :: Int,
+ _expires :: Int,
+ _avgTtl :: Int
 } deriving (Show, Read, Generic)
 
 data Cluster = Cluster {

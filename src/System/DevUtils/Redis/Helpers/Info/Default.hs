@@ -8,7 +8,7 @@ module System.DevUtils.Redis.Helpers.Info.Default (
  defaultInfoStats,
  defaultInfoRole,
  defaultInfoCPU,
- defaultInfoKeyspace,
+ defaultInfoKeyspaces,
  defaultInfoCluster
 ) where
 
@@ -17,7 +17,7 @@ import System.DevUtils.Redis.Helpers.Info.Include
 
 import qualified System.DevUtils.Sys.Multiplex as Mplx
 import qualified System.DevUtils.Sys.Memory as Mem
-import Data.Maybe (Maybe(..))
+import Data.Maybe
 
 defaultInfo :: Info
 defaultInfo = Info {
@@ -28,7 +28,7 @@ defaultInfo = Info {
  _stats = defaultInfoStats,
  _role = defaultInfoRole,
  _cpu = defaultInfoCPU,
- _keyspace = defaultInfoKeyspace,
+ _keyspaces = defaultInfoKeyspaces,
  _cluster = defaultInfoCluster
 }
 
@@ -173,8 +173,8 @@ defaultInfoCPU = CPU {
  _usedCpuUserChildren = 0.0
 }
 
-defaultInfoKeyspace :: Keyspace
-defaultInfoKeyspace = Keyspace {
+defaultInfoKeyspaces :: Keyspaces
+defaultInfoKeyspaces = Keyspaces {
  _databases = []
 }
 
