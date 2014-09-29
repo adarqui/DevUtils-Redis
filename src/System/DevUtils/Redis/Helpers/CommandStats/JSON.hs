@@ -2,7 +2,7 @@
 module System.DevUtils.Redis.Helpers.CommandStats.JSON (
  CommandStat(..),
  CommandStats(..),
- unMarshall'Value
+ cs'toJSON
 ) where
 
 import System.DevUtils.Redis.Helpers.CommandStats.Include (CommandStat(..), CommandStats(..))
@@ -21,8 +21,8 @@ import Data.Aeson
 instance FromJSON CommandStat
 instance ToJSON CommandStat
 
-unMarshall'Value :: [CommandStat] -> Value
-unMarshall'Value cs = object $ map (\v -> (T.pack (_type v), cs'to'Value v)) cs
+cs'toJSON :: [CommandStat] -> Value
+cs'toJSON cs = object $ map (\v -> (T.pack (_type v), cs'to'Value v)) cs
 
 cs'to'Value CommandStat{..} =
  object

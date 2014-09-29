@@ -1,13 +1,15 @@
-{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE FlexibleInstances, RecordWildCards #-}
 module System.DevUtils.Redis.Helpers.Info.JSON (
- Info(..)
+ Info(..),
+ keyspaces'toJSON
 ) where
 
 import System.DevUtils.Redis.Helpers.Info.Include
 import System.DevUtils.Redis.JSON
 
 import qualified Data.ByteString as B
-import Data.Aeson (FromJSON, ToJSON, decode, encode)
+import qualified Data.Text as T
+import Data.Aeson
 
 instance FromJSON Info
 instance ToJSON Info
@@ -44,3 +46,15 @@ instance ToJSON Keyspace
 
 instance FromJSON Cluster
 instance ToJSON Cluster
+
+keyspaces'toJSON :: [Keyspace] -> Value
+keyspaces'toJSON cs = object $ map (\v -> (T.pack (show (_db v)), keyspace'to'Value v)) cs
+
+keyspace'to'Value Keyspace{..} =
+ object
+  [
+   ("_db", toJSON _db),
+   ("_keys", toJSON _keys),
+   ("_expires", toJSON _expires),
+   ("_avgTtl", toJSON _avgTtl)
+  ]
